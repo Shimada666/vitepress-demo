@@ -2,8 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   # 部署名字
-  name: corgi-project-nd
-  namespace: corgi
+  name: vitepress-demo
+  namespace: corgi-project-nd
 spec:
   replicas: 1
   # 用来查找关联的 Pod，所有标签都匹配才行
