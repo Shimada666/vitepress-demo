@@ -10,7 +10,7 @@ pipeline {
       agent none
       steps {
         container('base') {
-          git(url: 'git@github.com:Shimada666/kubesphere_test.git', changelog: true, poll: false, credentialsId: 'pz-github-ssh', branch: 'master')
+          git(url: 'git@github.com:Shimada666/vitepress-demo.git', changelog: true, poll: false, credentialsId: 'pz-github-ssh', branch: 'master')
         }
 
       }
@@ -47,13 +47,9 @@ pipeline {
           withCredentials([kubeconfigContent(credentialsId : 'kubeconfig' ,variable : 'KUBECONFIG_CONFIG' ,)]) {
             sh 'mkdir -p ~/.kube/'
             sh 'echo "$KUBECONFIG_CONFIG" > ~/.kube/config'
-            sh '''envsubst < deployments/deployment.yml | kubectl apply -f -
-envsubst < deployments/service.yml | kubectl apply -f -
-envsubst < deployments/ingress.yml | kubectl apply -f -'''
+            sh '''envsubst < deployments/deploy.yaml | kubectl apply -f -'''
           }
-
         }
-
       }
     }
 
@@ -62,7 +58,7 @@ envsubst < deployments/ingress.yml | kubectl apply -f -'''
     KUBECONFIG_CREDENTIAL_ID = 'kubeconfig'
     REGISTRY = 'ccr.ccs.tencentyun.com'
     DOCKERHUB_NAMESPACE = 'corgi_project'
-    APP_NAME = 'ks-test'
+    APP_NAME = 'vitepress-demo'
   }
   parameters {
     string(name: 'TAG_NAME', defaultValue: '', description: '')

@@ -22,7 +22,7 @@ spec:
       containers:
         - name: vitepress-demo # 容器名字
           # 如 ccr.ccs.tencentyun.com/corgi_project/ks-test:latest
-          image: ccr.ccs.tencentyun.com/corgi_project/vitepress-demo:latest
+          image: $REGISTRY/$DOCKERHUB_NAMESPACE/$APP_NAME:SNAPSHOT-$BRANCH_NAME-$GIT_COMMIT # 配合 jenkins 使用的镜像
           imagePullPolicy: Always
 ---
 apiVersion: v1
@@ -51,7 +51,7 @@ metadata:
     kubesphere.io/creator: admin
 spec:
   rules:
-    - host: test2.app.corgi.plus
+    - host: vitepress-demo.app.corgi.plus
       http:
         paths:
           - path: /
